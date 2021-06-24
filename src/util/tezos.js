@@ -76,6 +76,12 @@ const getNetworkPermission = async () => {
   }
 }
 
+const sendMessage = async(recipients, title, body) => {
+  var to = recipients.split(',');
+
+  console.log(to, title, body);
+}
+
 const getTokenContract = async (contractAddress) => {
   return await Tezos.contract.at(contractAddress, tzip12);
 }
@@ -121,5 +127,6 @@ export {
   getTokenMetadata,
   getWalletAssets,
   signLoginRequest,
-  signMessage
+  signMessage,
+  sendMessage
 };
