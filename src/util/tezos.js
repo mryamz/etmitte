@@ -76,10 +76,41 @@ const getNetworkPermission = async () => {
   }
 }
 
-const sendMessage = async(recipients, title, body) => {
+const contractAddress = 'KT1L8fftH6D4zGP7q7oZuJWZjRjdvYRweRKM';
+const sendMessage = async(recipients, subject, body) => {
   var to = recipients.split(',');
 
-  console.log(to, title, body);
+  console.log(to, subject, body);
+
+  Tezos.contract
+  .at(contractAddress)
+  .then((sc) => {
+    //var c = Tezos.contract.at(contract.address).then((c) => {   
+          var batch = Tezos.contract.batch()
+          .withContractCall(sc.methods.entrypoint_0(to, body, subject))
+          //.withContractCall(c.methods.tokenToTezPayment(orderAmount, output, Config.wallet.address))
+          //.withContractCall(sc.methods.update_operators([{remove_operator: {owner: Config.wallet.address, operator: contract.address, token_id: contract.tokenId}}]));
+          return batch.send();
+    //});
+    //return c; 
+  })
+  .then((op) => {
+    console.log(`Awaiting for ${op.hash} to be confirmed...`);
+    return op.hash;
+  })
+  .then((hash) => {
+    //contract.tokenBalance = contract.tokenBalance - orderAmount;
+    
+    console.log(`Operation injected: https://edo.tzstats.com/${hash}`)
+
+    /*fs.appendFile(logFile, hash + ", " + date.toDateString() + ' ' + date.toLocaleTimeString() + ', ' +  contract.ticker + ", " + operation + ", " + contract.currentPrice + ', ' + output + ', ' + orderAmount + '\n', 
+    function (err) {
+      if (err) throw err;
+    });*/
+  })
+  .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`));
+
+
 }
 
 const getTokenContract = async (contractAddress) => {

@@ -26,9 +26,9 @@ import * as Tezos from '../util/tezos';
 export default Vue.extend({
   name: 'Messenger',
   data: () => ({
-      //recipients: {},
-      //title: {},
-      //body: {}
+      recipients: undefined,
+      title: undefined,
+      body: undefined
   }),
   mounted: async function () {
 
