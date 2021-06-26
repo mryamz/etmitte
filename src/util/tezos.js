@@ -11,13 +11,13 @@ const Tezos = new TezosToolkit(process.env.VUE_APP_TEZOS_RPC_URL);
 Tezos.addExtension(new Tzip12Module());
 Tezos.addExtension(new Tzip16Module());
 
+const contractAddress = process.env.VUE_APP_TEDDY_MESSENGER;
+
 const wallet = new BeaconWallet({
   name: process.env.VUE_APP_TEZOS_DAPP_NAME,
   preferredNetwork: process.env.VUE_APP_TEZOS_NETWORK,
   colorMode: 'dark'
 });
-
-Tezos.setWalletProvider(wallet);
 
 const network = {
   type: process.env.VUE_APP_TEZOS_NETWORK,
@@ -68,32 +68,28 @@ const getActiveAccount = async () => {
 };
 
 const getNetworkPermission = async () => {
-  const activeAccount = await wallet.client.getActiveAccount();
+  var activeAccount = await getActiveAccount();
 
   if (!activeAccount) {
-    await wallet.requestPermissions({ network });
-    return getActiveAccount();
+    await wallet.requestPermissions({network});
+    activeAccount = getActiveAccount();
+
+    Tezos.setProvider({wallet});
   }
+
+  return activeAccount;
 }
 
-const contractAddress = 'KT1L8fftH6D4zGP7q7oZuJWZjRjdvYRweRKM';
 const sendMessage = async(recipients, subject, body) => {
   var to = recipients.split(',');
 
   console.log(to, subject, body);
 
+  Tezos.setWalletProvider(wallet);
+
   Tezos.contract
   .at(contractAddress)
-  .then((sc) => {
-    //var c = Tezos.contract.at(contract.address).then((c) => {   
-          var batch = Tezos.contract.batch()
-          .withContractCall(sc.methods.entrypoint_0(to, body, subject))
-          //.withContractCall(c.methods.tokenToTezPayment(orderAmount, output, Config.wallet.address))
-          //.withContractCall(sc.methods.update_operators([{remove_operator: {owner: Config.wallet.address, operator: contract.address, token_id: contract.tokenId}}]));
-          return batch.send();
-    //});
-    //return c; 
-  })
+  .then((sc) => sc.methods.entrypoint_0(to, subject, body).send({ amount: 30000, mutez: true }))
   .then((op) => {
     console.log(`Awaiting for ${op.hash} to be confirmed...`);
     return op.hash;
