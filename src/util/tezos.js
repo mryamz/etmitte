@@ -19,40 +19,12 @@ const wallet = new BeaconWallet({
   colorMode: 'dark'
 });
 
+//Tezos.setWalletProvider(wallet);
+Tezos.setProvider({ wallet });
+
 const network = {
   type: process.env.VUE_APP_TEZOS_NETWORK,
   rpcUrl: process.env.VUE_APP_TEZOS_RPC_URL
-};
-
-const signMessage = async (msg, address) => {
-  msg = "Tezos Signed Message: " + msg;
-  const input = Buffer.from(msg);
-  const prefix = Buffer.from("0501", "hex");
-  const len_bytes = Buffer.from(msg.length.toString(16).padStart(8, '0'), "hex");
-  msg = Buffer.concat([prefix, len_bytes, input], prefix.length + len_bytes.length + input.length);
-  msg = msg.toString('hex');
-
-  let signedMsg = false;
-  try {
-    signedMsg = (await wallet.client.requestSignPayload({ payload: msg, sourceAddress: address })).signature;
-  } catch(signPayloadError) {
-    console.error(signPayloadError);
-  }
-
-  return { msg, signedMsg };
-};
-
-const signLoginRequest = async () => {
-  const acct = await getActiveAccount();
-  return await signMessage(
-    JSON.stringify({
-      type: 'auth',
-      name: process.env.VUE_APP_TEZOS_DAPP_NAME,
-      pkh: await acct.address,
-      expires: new Date().getTime() + (5 * 60 * 1000)
-    }),
-    acct.address
-  );
 };
 
 const clearActiveAccount = () => {
@@ -70,12 +42,10 @@ const getActiveAccount = async () => {
 const getNetworkPermission = async () => {
   var activeAccount = await getActiveAccount();
 
-  //if (!activeAccount) {
+  if (!activeAccount) {
     await wallet.requestPermissions({network});
     activeAccount = getActiveAccount();
-
-    Tezos.setProvider({wallet});
-  //}
+  }
 
   return activeAccount;
 }
@@ -86,9 +56,13 @@ const sendMessage = async(recipients, subject, body) => {
 
   console.log(to, subject, body);
 
-  Tezos.setWalletProvider(wallet);
+  const userAddress = await wallet.getPKH();
 
-  Tezos.contract
+  console.log(userAddress);
+
+  //wallet.client.getActiveAccount().then((account) => { console.log(account) });
+
+  Tezos.wallet
   .at(contractAddress)
   .then((sc) => sc.methods.entrypoint_0(to, subject, body).send({ amount: 30000, mutez: true }))
   .then((op) => {
@@ -154,7 +128,5 @@ export {
   getTokenContract,
   getTokenMetadata,
   getWalletAssets,
-  signLoginRequest,
-  signMessage,
   sendMessage
 };

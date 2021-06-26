@@ -1000,7 +1000,7 @@
   "resolved" "https://registry.npmjs.org/@soda/get-current-script/-/get-current-script-1.0.2.tgz"
   "version" "1.0.2"
 
-"@taquito/beacon-wallet@^9.1.0":
+"@taquito/beacon-wallet@^9.1.1":
   "integrity" "sha512-qQ5A+b79yMG2BRV2udpO5BlbDPGa+Gh4y46757CrKKhvSsyPou8uU7EW2/jBUuI1BfaY42mNrQ3kAa7+9adRyw=="
   "resolved" "https://registry.npmjs.org/@taquito/beacon-wallet/-/beacon-wallet-9.1.1.tgz"
   "version" "9.1.1"
@@ -1040,7 +1040,7 @@
     "bignumber.js" "^9.0.1"
     "lodash" "^4.17.20"
 
-"@taquito/signer@^9.1.0":
+"@taquito/signer@^9.1.1":
   "integrity" "sha512-W0U28HaM/OzVVFAaDM9GjY+TYd7Z2WOT6SgY2885ic8bt6g/L9EZU7SMSCUaVw4h+eijJHRAzeXWh9WfS2pSlw=="
   "resolved" "https://registry.npmjs.org/@taquito/signer/-/signer-9.1.1.tgz"
   "version" "9.1.1"
@@ -1054,7 +1054,7 @@
     "pbkdf2" "^3.1.1"
     "typedarray-to-buffer" "^3.1.5"
 
-"@taquito/taquito@^9.1.0", "@taquito/taquito@^9.1.1":
+"@taquito/taquito@^9.1.1":
   "integrity" "sha512-A89bXRPgYKYNMXa6PBxMrkmdtkxjM0bnBpW62Dz0gHVKdxj1fXLD/rPZFCwkm9soOVSfzIqJoKWDZ37NBTzc2g=="
   "resolved" "https://registry.npmjs.org/@taquito/taquito/-/taquito-9.1.1.tgz"
   "version" "9.1.1"
@@ -1068,7 +1068,7 @@
     "rx-sandbox" "^1.0.3"
     "rxjs" "^6.6.3"
 
-"@taquito/tzip12@^9.1.0":
+"@taquito/tzip12@^9.1.1":
   "integrity" "sha512-Sn8k9QsNTqXwMX/XsiOfPwOJ95Dt+TP0EdzzkXxXr8eiZjFhr2bOLEXnoKJpDVkzBagmZV1LKhNm263aXDaboQ=="
   "resolved" "https://registry.npmjs.org/@taquito/tzip12/-/tzip12-9.1.1.tgz"
   "version" "9.1.1"
@@ -1078,7 +1078,7 @@
     "@taquito/tzip16" "^9.1.1"
     "bignumber.js" "^9.0.1"
 
-"@taquito/tzip16@^9.1.0", "@taquito/tzip16@^9.1.1":
+"@taquito/tzip16@^9.1.1":
   "integrity" "sha512-fRygZjjSidJ0R5z6uGJHJReA1/GyBon1wLCL3scHn5tYTsdXCm/45UgjFcU9wic1JQ1PkWGkdZnQllbp1sOiOw=="
   "resolved" "https://registry.npmjs.org/@taquito/tzip16/-/tzip16-9.1.1.tgz"
   "version" "9.1.1"
