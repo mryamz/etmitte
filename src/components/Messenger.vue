@@ -5,10 +5,10 @@
         <div class='row'>
           <div class="col-9 align-middle">
             <div class="pt-2 align-middle">
-                <input type="text" id="recipients" v-model="recipients" placeholder="Enter addresses (comma seperated)" />
-                <input type="text" id="title" v-model="title" placeholder="Enter Message Title"/>
-                <input type="text" id="body" v-model="body" placeholder="Enter Message Body" />
-                <button v-on:click="send">Send</button>
+                <div class="col-9 align-left"><input size="50" type="text" id="recipients" v-model="recipients" placeholder="Enter addresses (comma seperated)" /></div>
+                <div class="col-9 align-left"><input size="50" type="text" id="title" v-model="title" placeholder="Enter Message Title"/></div>
+                <div class="col-9 align-left"><textarea rows="5" cols="80" id="body" v-model="body" placeholder="Enter Message Body" /></div>
+                <div class="col-9 align-right"><button v-on:click="send">Send</button></div>
             </div>
           </div>
         </div>
