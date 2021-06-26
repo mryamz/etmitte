@@ -6,11 +6,11 @@
           <div class="mb-2">
             <div class="mb-2">
               <h4 class="fw-lighter">
-                FOOTER
+                
               </h4>
             </div>
             <div>
-              <span class="text-muted">FOOTER</span> FOOTER
+              <span class="text-muted"></span> 
             </div>
           </div>
         </div>
