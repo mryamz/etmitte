@@ -70,17 +70,18 @@ const getActiveAccount = async () => {
 const getNetworkPermission = async () => {
   var activeAccount = await getActiveAccount();
 
-  if (!activeAccount) {
+  //if (!activeAccount) {
     await wallet.requestPermissions({network});
     activeAccount = getActiveAccount();
 
     Tezos.setProvider({wallet});
-  }
+  //}
 
   return activeAccount;
 }
 
 const sendMessage = async(recipients, subject, body) => {
+  getNetworkPermission();
   var to = recipients.split(',');
 
   console.log(to, subject, body);
